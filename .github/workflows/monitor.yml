@@ -1,0 +1,40 @@
+name: LG트윈스 마킹키트 모니터링
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'   # 10분마다 실행 (UTC 기준)
+  workflow_dispatch:           # 수동 실행 버튼
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+
+      - name: uv 설치
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: 모니터링 실행
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: uv run python monitor.py
+
+      - name: 상태 커밋
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Actions"
+          git add status.json
+          git diff --staged --quiet || git commit -m "chore: 상태 업데이트 $(date -u +'%Y-%m-%d %H:%M UTC')"
+
+      - name: 변경사항 푸시
+        uses: ad-m/github-push-action@v0.8.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
