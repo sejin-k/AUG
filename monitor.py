@@ -93,7 +93,7 @@ def send_discord(changes: list[str], curr: list[dict]):
                 },
             ],
             "footer": {
-                "text": f"확인 시각: {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}"
+                "text": f"확인 시각: {datetime.now().strftime('%Y-%m-%d %H:%M')} (UTC+9)"
             },
         },
     ]
