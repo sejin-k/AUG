@@ -16,6 +16,9 @@ from bs4 import BeautifulSoup
 import json
 import os
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # ── 설정 ──────────────────────────────────────────────
@@ -40,11 +43,6 @@ HEADERS = {
 LOG_FILE = "status.json"
 
 # GitHub Actions Secret에서 주입
-# 로컬 실행
-# from dotenv import load_dotenv
-# load_dotenv()
-# DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "")
-# GitHub Actions
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL", "")
 
 # ── Discord 알림 ───────────────────────────────────────

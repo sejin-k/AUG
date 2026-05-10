@@ -1,6 +1,9 @@
 name: LG트윈스 마킹키트 모니터링
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '*/10 * * * *'   # 10분마다 실행 (UTC 기준)
   workflow_dispatch:           # 수동 실행 버튼
