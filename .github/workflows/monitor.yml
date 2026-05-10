@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 18 * * *'   # 10분마다 실행 (UTC 기준)
+    - cron: '3 18 * * *'   # 10분마다 실행 (UTC 기준)
       timezone: 'Asia/Seoul'
   workflow_dispatch:           # 수동 실행 버튼
 
